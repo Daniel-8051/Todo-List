@@ -1,4 +1,4 @@
-package academy.learnprogramming.config;
+package mcauley.daniel.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.WebApplicationInitializer;

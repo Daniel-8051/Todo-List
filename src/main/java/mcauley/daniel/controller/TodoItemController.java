@@ -1,11 +1,11 @@
-package academy.learnprogramming.controller;
+package mcauley.daniel.controller;
 
-import academy.learnprogramming.model.TodoData;
-import academy.learnprogramming.model.TodoItem;
-import academy.learnprogramming.service.TodoItemService;
-import academy.learnprogramming.util.AttributeNames;
-import academy.learnprogramming.util.Mappings;
-import academy.learnprogramming.util.ViewNames;
+import mcauley.daniel.model.TodoData;
+import mcauley.daniel.model.TodoItem;
+import mcauley.daniel.service.TodoItemService;
+import mcauley.daniel.util.AttributeNames;
+import mcauley.daniel.util.Mappings;
+import mcauley.daniel.util.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

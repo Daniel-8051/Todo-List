@@ -1,4 +1,4 @@
-package academy.learnprogramming.util;
+package mcauley.daniel.util;
 
 public final class AttributeNames {
 

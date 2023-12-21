@@ -1,6 +1,6 @@
-package academy.learnprogramming.config;
+package mcauley.daniel.config;
 
-import academy.learnprogramming.util.ViewNames;
+import mcauley.daniel.util.ViewNames;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

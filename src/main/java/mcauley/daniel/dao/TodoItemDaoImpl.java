@@ -1,6 +1,6 @@
-package academy.learnprogramming.dao;
+package mcauley.daniel.dao;
 
-import academy.learnprogramming.model.TodoItem;
+import mcauley.daniel.model.TodoItem;
 import lombok.NonNull;
 import org.springframework.stereotype.Repository;
 

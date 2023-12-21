@@ -1,7 +1,7 @@
-package academy.learnprogramming.service;
+package mcauley.daniel.service;
 
-import academy.learnprogramming.model.TodoData;
-import academy.learnprogramming.model.TodoItem;
+import mcauley.daniel.model.TodoData;
+import mcauley.daniel.model.TodoItem;
 
 public interface TodoItemService {
     void addItem(TodoItem todoItem);

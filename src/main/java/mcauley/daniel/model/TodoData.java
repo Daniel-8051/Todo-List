@@ -1,4 +1,4 @@
-package academy.learnprogramming.model;
+package mcauley.daniel.model;
 
 import lombok.NonNull;
 
