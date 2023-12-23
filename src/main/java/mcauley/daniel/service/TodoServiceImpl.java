@@ -3,13 +3,19 @@ package mcauley.daniel.service;
 import mcauley.daniel.model.TodoData;
 import mcauley.daniel.model.TodoItem;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TodoServiceImpl implements TodoItemService{
 
     @Getter
-    private final TodoData data = new TodoData();
+    private final TodoData data;
+
+    @Autowired
+    public TodoServiceImpl(TodoData data) {
+        this.data = data;
+    }
 
     @Override
     public void addItem(TodoItem todoItem) {
