@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Todo Item</title>
+</head>
+<body>
+    <div align="center">
+        <table border="1" cellpadding="5">
+            <tr>
+                <td><label>ID</label></td>
+                <td th:text="${todoItem.id}"></td>
+            </tr>
+            <tr>
+                <td><label>Title</label></td>
+                <td th:text="${todoItem.title}"></td>
+            </tr>
+            <tr>
+                <td><label>Deadline</label></td>
+                <td th:text="${todoItem.deadline}"></td>
+            </tr>
+            <tr>
+                <td><label>Details</label></td>
+                <td th:text="${todoItem.details}"></td>
+            </tr>
+        </table>
+
+        <h2><a th:href="@{items}">Return to items list</a></h2>
+    </div>
+
+</body>
+</html>

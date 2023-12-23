@@ -30,7 +30,6 @@ public class TodoItemController {
         return todoItemService.getData();
     }
 
-    // http://localhost:8080/todo-list-spring-mvc/items
     @GetMapping(Mappings.ITEMS)
     public String items(){
         return ViewNames.ITEMS_LIST;
@@ -41,6 +40,7 @@ public class TodoItemController {
                               Model model){
         log.info("Editing id = {}", id);
         TodoItem todoItem = todoItemService.getItem(id);
+        log.info("Returning item to edit {}", todoItem);
 
         if(todoItem == null){
             todoItem = new TodoItem("", "", LocalDate.now());
@@ -73,6 +73,7 @@ public class TodoItemController {
     public String viewItem(@RequestParam int id, Model model){
         log.info("Getting item with id {}", id);
         TodoItem item = todoItemService.getItem(id);
+        log.info("Returning item {}", item);
         model.addAttribute(AttributeNames.TODO_ITEM, item);
         return ViewNames.VIEW_ITEM;
     }

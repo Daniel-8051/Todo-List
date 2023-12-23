@@ -1,6 +1,8 @@
 package mcauley.daniel.model;
 
+import jakarta.annotation.PostConstruct;
 import lombok.NonNull;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,12 +10,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
+@Component
 public class TodoData {
 
     private static int idValue = 1;
     private final List<TodoItem> items = new ArrayList<>();
 
-    public TodoData() {
+    @PostConstruct
+    public void createDummyData(){
         // dummy data
         addItem(new TodoItem("first", "first details", LocalDate.now()));
         addItem(new TodoItem("second", "second details", LocalDate.now()));
