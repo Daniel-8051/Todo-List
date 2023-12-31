@@ -26,56 +26,58 @@ public class TodoItemController {
     }
 
     @ModelAttribute
-    public TodoData todoData(){
+    public TodoData todoData() {
         return todoItemService.getData();
     }
 
     @GetMapping(Mappings.ITEMS)
-    public String items(){
+    public String items() {
+        log.info("Returning all items");
         return ViewNames.ITEMS_LIST;
     }
 
     @GetMapping(Mappings.ADD_ITEM)
-    public String addEditItem(@RequestParam(required = false, defaultValue = "-1") int id,
-                              Model model){
-        log.info("Editing id = {}", id);
-        TodoItem todoItem = todoItemService.getItem(id);
-        log.info("Returning item to edit {}", todoItem);
-
-        if(todoItem == null){
-            todoItem = new TodoItem("", "", LocalDate.now());
-        }
-
+    public String addEditItem(@RequestParam(required = false, defaultValue = "-1") int id, Model model) {
+        log.info("Editing item with id = {}", id);
+        TodoItem todoItem = todoItemService.getItem(id) != null ? todoItemService.getItem(id) : new TodoItem("", "", LocalDate.now());
         model.addAttribute(AttributeNames.TODO_ITEM, todoItem);
         return ViewNames.ADD_ITEM;
     }
 
     @PostMapping(Mappings.ADD_ITEM)
-    public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) TodoItem todoItem){
+    public String processItem(@ModelAttribute(AttributeNames.TODO_ITEM) TodoItem todoItem) {
         log.info("todoItem from form = {}", todoItem);
-
-        if(todoItem.getId() == 0){
+        if (todoItem.getId() == 0) {
             todoItemService.addItem(todoItem);
-        } else{
+        } else {
             todoItemService.updateItem(todoItem);
         }
         return "redirect:/" + Mappings.ITEMS;
     }
 
     @GetMapping(Mappings.DELETE_ITEM)
-    public String deleteItem(@RequestParam int id){
+    public String deleteItem(@RequestParam int id) {
         log.info("Deleting item with id {}", id);
         todoItemService.removeItem(id);
         return "redirect:/" + Mappings.ITEMS;
     }
 
     @GetMapping(Mappings.VIEW_ITEM)
-    public String viewItem(@RequestParam int id, Model model){
+    public String viewItem(@RequestParam int id, Model model) throws Exception {
         log.info("Getting item with id {}", id);
         TodoItem item = todoItemService.getItem(id);
-        log.info("Returning item {}", item);
-        model.addAttribute(AttributeNames.TODO_ITEM, item);
-        return ViewNames.VIEW_ITEM;
+        if (item != null) {
+            log.info("Returning item {}", item);
+            model.addAttribute(AttributeNames.TODO_ITEM, item);
+            return ViewNames.VIEW_ITEM;
+        } else {
+            throw new RuntimeException("Could not get item with id " + id);
+        }
+    }
+
+    @GetMapping(Mappings.HOME)
+    public String viewHome() {
+        return ViewNames.HOME;
     }
 
 }
