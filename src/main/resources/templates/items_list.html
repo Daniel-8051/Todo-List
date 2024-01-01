@@ -18,14 +18,15 @@
                 <th>Delete</th>
             </tr>
 
-            <tr th:each="item : ${todoData.items}">
+            <tr th:each="item : ${todoItems}">
                 <td th:text="${item.title}"></td>
                 <td th:text="${item.deadline}"></td>
-                <td><a th:href="@{/item?id={id}(id=${item.id})}">View</a></td>
-                <td><a th:href="@{/addItem?id={id}(id=${item.id})}">Edit</a></td>
-                <td><a th:href="@{/deleteItem?id={id}(id=${item.id})}">Delete</a></td>
+                <td><a th:href="@{item?id={id}(id=${item.id})}">View</a></td>
+                <td><a th:href="@{addItem?id={id}(id=${item.id})}">Edit</a></td>
+                <td><a th:href="@{deleteItem?id={id}(id=${item.id})}">Delete</a></td>
             </tr>
         </table>
+        <h2><a th:href="@{deleteAllItems}">Delete All Items</a></h2>
     </div>
 
 </body>

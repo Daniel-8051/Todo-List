@@ -16,6 +16,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     public String defaultErrorHandler(HttpServletRequest req, Exception e, Model model) throws Exception{
         log.error("Exception encountered", e);
         model.addAttribute("exceptionMessage", e.getMessage());
+        model.addAttribute("exception", e.getClass());
         return ViewNames.ERROR;
     }
 }

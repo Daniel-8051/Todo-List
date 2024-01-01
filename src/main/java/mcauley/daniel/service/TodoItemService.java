@@ -1,12 +1,14 @@
 package mcauley.daniel.service;
 
-import mcauley.daniel.model.TodoData;
 import mcauley.daniel.model.TodoItem;
 
+import java.util.List;
+
 public interface TodoItemService {
-    void addItem(TodoItem todoItem);
-    void removeItem(int id);
+    boolean addItem(TodoItem todoItem);
+    boolean removeItem(int id);
     TodoItem getItem(int id);
-    void updateItem(TodoItem todoItem);
-    TodoData getData();
+    List<TodoItem> getAllItems();
+    boolean updateItem(TodoItem todoItem);
+    void removeAllItems();
 }
