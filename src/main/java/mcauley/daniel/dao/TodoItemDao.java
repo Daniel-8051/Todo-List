@@ -11,4 +11,5 @@ public interface TodoItemDao {
     boolean removeItem(int id);
     TodoItem getItem(int id);
     boolean updateItem(@NonNull TodoItem item);
+    void deleteAllItems();
 }

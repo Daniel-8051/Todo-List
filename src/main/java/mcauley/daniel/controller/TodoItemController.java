@@ -1,18 +1,21 @@
 package mcauley.daniel.controller;
 
-import mcauley.daniel.model.TodoData;
+import lombok.extern.slf4j.Slf4j;
 import mcauley.daniel.model.TodoItem;
 import mcauley.daniel.service.TodoItemService;
 import mcauley.daniel.util.AttributeNames;
 import mcauley.daniel.util.Mappings;
 import mcauley.daniel.util.ViewNames;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -25,21 +28,25 @@ public class TodoItemController {
         this.todoItemService = todoItemService;
     }
 
-    @ModelAttribute
-    public TodoData todoData() {
-        return todoItemService.getData();
+    @ModelAttribute("todoItems")
+    public List<TodoItem> todoItems() {
+        return todoItemService.getAllItems();
     }
 
     @GetMapping(Mappings.ITEMS)
     public String items() {
-        log.info("Returning all items");
         return ViewNames.ITEMS_LIST;
     }
 
     @GetMapping(Mappings.ADD_ITEM)
     public String addEditItem(@RequestParam(required = false, defaultValue = "-1") int id, Model model) {
         log.info("Editing item with id = {}", id);
-        TodoItem todoItem = todoItemService.getItem(id) != null ? todoItemService.getItem(id) : new TodoItem("", "", LocalDate.now());
+        TodoItem todoItem;
+        if (id != -1) {
+            todoItem = todoItemService.getItem(id);
+        } else {
+            todoItem = TodoItem.builder().title("").details("").deadline(LocalDate.now()).build();
+        }
         model.addAttribute(AttributeNames.TODO_ITEM, todoItem);
         return ViewNames.ADD_ITEM;
     }
@@ -64,7 +71,6 @@ public class TodoItemController {
 
     @GetMapping(Mappings.VIEW_ITEM)
     public String viewItem(@RequestParam int id, Model model) throws Exception {
-        log.info("Getting item with id {}", id);
         TodoItem item = todoItemService.getItem(id);
         if (item != null) {
             log.info("Returning item {}", item);
@@ -78,6 +84,12 @@ public class TodoItemController {
     @GetMapping(Mappings.HOME)
     public String viewHome() {
         return ViewNames.HOME;
+    }
+
+    @GetMapping(Mappings.DELETE_ALL)
+    public String deleteAllItems(){
+        todoItemService.removeAllItems();
+        return "redirect:/" + Mappings.ITEMS;
     }
 
 }
