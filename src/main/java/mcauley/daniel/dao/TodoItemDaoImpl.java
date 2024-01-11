@@ -36,7 +36,7 @@ public class TodoItemDaoImpl implements TodoItemDao {
     @Override
     public boolean addItem(@NonNull TodoItem item) {
         SqlParameterSource beansParams = new BeanPropertySqlParameterSource(item);
-        String sqlQuery = "INSERT INTO `spring_db`.`todo_item` (`title`, `details`, `deadline`) " +
+        String sqlQuery = "INSERT INTO todo_item (`title`, `details`, `deadline`) " +
                 "VALUES (:title, :details, :deadline)";
         return namedParameterJdbcTemplate.update(sqlQuery, beansParams) == 1;
     }
@@ -59,7 +59,7 @@ public class TodoItemDaoImpl implements TodoItemDao {
     @Override
     public boolean updateItem(@NonNull TodoItem item) {
         SqlParameterSource beanParam = new BeanPropertySqlParameterSource(item);
-        String sqlQuery = "UPDATE `spring_db`.`todo_item` SET title = :title, details = :details, deadline = :deadline WHERE id = :id";
+        String sqlQuery = "UPDATE todo_item SET title = :title, details = :details, deadline = :deadline WHERE id = :id";
         return namedParameterJdbcTemplate.update(sqlQuery, beanParam) == 1;
     }
 
