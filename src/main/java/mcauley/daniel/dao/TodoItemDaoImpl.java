@@ -1,20 +1,22 @@
 package mcauley.daniel.dao;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import mcauley.daniel.model.TodoItem;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 @Slf4j
+@Transactional
 public class TodoItemDaoImpl implements TodoItemDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -57,10 +59,14 @@ public class TodoItemDaoImpl implements TodoItemDao {
     @Override
     public boolean updateItem(@NonNull TodoItem item) {
         SqlParameterSource beanParam = new BeanPropertySqlParameterSource(item);
-        String sqlQuery = "UPDATE todo_item SET title = :title, details = :details, deadline = :deadline WHERE id = :id";
+        String sqlQuery = "UPDATE `spring_db`.`todo_item` SET title = :title, details = :details, deadline = :deadline WHERE id = :id";
         return namedParameterJdbcTemplate.update(sqlQuery, beanParam) == 1;
     }
 
+    /**
+     * Truncate operations drop and re-create the table, which is much faster than deleting rows one by one, particularly for large tables.
+     * Truncate operations cause an implicit commit, and so cannot be rolled back.
+     */
     @Override
     public void deleteAllItems(){
         String sqlQuery = "TRUNCATE TABLE todo_item";
